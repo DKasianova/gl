@@ -1,0 +1,62 @@
+let firstWeekTemperature = {
+    "Monday": 23,
+    "Tuesday": 21,
+    "Wednesday": 24,
+    "Thursday": 20,
+    "Friday": 16,
+    "Saturday": 18,
+    "Sunday": 17
+};
+
+let secondWeekTemperature = {
+    "Monday": 4,
+    "Tuesday": 0,
+    "Wednesday": -3,
+    "Thursday": 2,
+    "Friday": 2,
+    "Saturday": 1,
+    "Sunday": -1
+};
+
+let thirdWeekTemperature = {
+    "Monday": -5,
+    "Tuesday": -2,
+    "Wednesday": -1,
+    "Thursday": -1,
+    "Friday": -3,
+    "Saturday": -5,
+    "Sunday": -7
+};
+
+function getAverageTemperature(weekTemperature) {
+    let sum = 0;
+    const temperatures = Object.values(weekTemperature);
+
+    for (const temp of temperatures) {
+        sum += temp;
+    }
+
+    return sum / temperatures.length;
+}
+
+function getClosestDay(averageTemperature, weekTemperature) {
+    let minDiff, closestDay;
+
+    for (const day in weekTemperature) {
+        const currentTemperature = weekTemperature[day];
+        const diff = Math.abs(averageTemperature - currentTemperature);
+        if (minDiff === undefined || diff < minDiff) {
+            minDiff = diff;
+            closestDay = day;
+        }
+    }
+    return closestDay;
+}
+
+function nearestFoundDay (weekTemperature) {
+    const averageWeekValue = getAverageTemperature(weekTemperature);
+    const nearestFoundDay = getClosestDay(averageWeekValue, weekTemperature);
+    console.log(`Average week temperature: ${averageWeekValue}`);
+    console.log(`Target day: ${nearestFoundDay}`);
+    return nearestFoundDay;
+}
